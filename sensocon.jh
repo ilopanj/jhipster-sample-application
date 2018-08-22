@@ -1,0 +1,68 @@
+entity Company {
+	companyId Long
+    name String
+}
+
+entity Contact
+{
+	emailAddress String
+    companyId Long
+    firstName String
+    lastName String
+    phoneNumber String
+}
+
+enum SensorType {
+    PRESSURE, TEMPERATURE, HUMIDITY, ON_OFF
+}
+
+enum UnitsPressure
+{
+	PSI, MILLIBARS
+}
+
+enum UnitsTemperature
+{
+	FARENHEIT, CELSIUS
+}
+
+entity SensorDevice {
+	deviceId String
+    companyId Long
+}
+
+entity Sensor {
+	deviceId  String
+    sensorType SensorType
+    
+}
+
+// an ignored comment
+/** not an ignored comment */
+entity Location {
+	streetAddress String,
+	postalCode String,
+	city String,
+	stateProvince String
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Company{companyId} to SensorDevice,
+    SensorDevice{deviceId} to Sensor
+}
+
+relationship OneToOne {
+	SensorDevice to Location
+}
+
+relationship ManyToOne {
+	Contact{companyId} to Company
+}
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+// Set an angular suffix
+angularSuffix * with mySuffix
